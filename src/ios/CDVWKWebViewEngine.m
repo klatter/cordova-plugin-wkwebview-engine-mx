@@ -348,6 +348,10 @@ NSTimer *timer;
     } else {
         [wkWebView.scrollView setDecelerationRate:UIScrollViewDecelerationRateFast];
     }
+
+    if(@available(iOS 11.0, *)) {
+        wkWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 }
 
 - (void)updateWithInfo:(NSDictionary*)info
