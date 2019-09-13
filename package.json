@@ -1,0 +1,51 @@
+{
+  "_from": "cordova-plugin-wkwebview-engine-mx@^1.0.1-mx.1.2.1",
+  "_id": "cordova-plugin-wkwebview-engine-mx@1.0.1-mx.1.2.1",
+  "_inBundle": false,
+  "_integrity": "sha512-iSUb37fr+7VnbS4TUksUX98WbrCAovjwrZwmk9lSeDBngX7aIHF64F1dsjntwiWkwD/LB9S0RcOeB47IE2hH9w==",
+  "_location": "/cordova-plugin-wkwebview-engine-mx",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-wkwebview-engine-mx@^1.0.1-mx.1.2.1",
+    "name": "cordova-plugin-wkwebview-engine-mx",
+    "escapedName": "cordova-plugin-wkwebview-engine-mx",
+    "rawSpec": "^1.0.1-mx.1.2.1",
+    "saveSpec": null,
+    "fetchSpec": "^1.0.1-mx.1.2.1"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-wkwebview-engine-mx/-/cordova-plugin-wkwebview-engine-mx-1.0.1-mx.1.2.1.tgz",
+  "_shasum": "6bb5e1782a1811e3d89aaece2ba6c8e476c764e2",
+  "_spec": "cordova-plugin-wkwebview-engine-mx@^1.0.1-mx.1.2.1",
+  "_where": "/Users/nkl21615/Documents/git/VGZ-App",
+  "author": {
+    "name": "Apache Cordova"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Mendix B.V"
+    }
+  ],
+  "deprecated": false,
+  "description": "Cordova WKWebView Engine Plugin (Mendix fork)",
+  "devDependencies": {
+    "jshint": "^2.6.0"
+  },
+  "keywords": [
+    "cordova",
+    "wkwebview"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "cordova-plugin-wkwebview-engine-mx",
+  "scripts": {
+    "jshint": "node node_modules/jshint/bin/jshint src",
+    "test": "npm run jshint"
+  },
+  "version": "1.0.1-mx.1.2.1"
+}
