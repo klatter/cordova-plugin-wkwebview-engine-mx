@@ -775,6 +775,14 @@ NSTimer *timer;
     NSURL* url = [navigationAction.request URL];
     CDVViewController* vc = (CDVViewController*)self.viewController;
 
+     /*
+     * Workaround tel: links
+     */
+    if ([url.scheme isEqualToString:@"tel"]) {
+        [[UIApplication sharedApplication] openURL:url];
+        return decisionHandler(NO);
+    }
+
     /*
      * Give plugins the chance to handle the url
      */
