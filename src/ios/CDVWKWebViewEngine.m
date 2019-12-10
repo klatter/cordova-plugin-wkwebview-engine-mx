@@ -151,6 +151,10 @@ NSTimer *timer;
 
     WKWebView* wkWebView = (WKWebView*)_engineWebView;
 
+    if (IsAtLeastiOSVersion(@"9.0") && [self.viewController isKindOfClass:[CDVViewController class]]) {
+        wkWebView.customUserAgent = ((CDVViewController*) self.viewController).userAgent;
+    }
+
     if ([self.viewController conformsToProtocol:@protocol(WKUIDelegate)]) {
         wkWebView.UIDelegate = (id <WKUIDelegate>)self.viewController;
     }

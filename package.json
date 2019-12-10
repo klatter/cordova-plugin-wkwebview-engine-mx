@@ -1,8 +1,8 @@
 {
-  "_from": "cordova-plugin-wkwebview-engine-mx@^1.0.1-mx.1.2.1",
-  "_id": "cordova-plugin-wkwebview-engine-mx@1.0.1-mx.1.2.1",
+  "_from": "cordova-plugin-wkwebview-engine-mx",
+  "_id": "cordova-plugin-wkwebview-engine-mx@1.0.3-mx.1.2.2",
   "_inBundle": false,
-  "_integrity": "sha512-iSUb37fr+7VnbS4TUksUX98WbrCAovjwrZwmk9lSeDBngX7aIHF64F1dsjntwiWkwD/LB9S0RcOeB47IE2hH9w==",
+  "_integrity": "sha512-oNK50uSakhz9GUOOO8ok7Jo7W1oKyS3YfATGxvL4tunGpOhuh/ZhnTu1aRynHYYR0r57R1islrfinmUh8VOztw==",
   "_location": "/cordova-plugin-wkwebview-engine-mx",
   "_phantomChildren": {},
   "_requested": {
@@ -11,9 +11,9 @@
     "raw": "cordova-plugin-wkwebview-engine-mx@^1.0.1-mx.1.2.1",
     "name": "cordova-plugin-wkwebview-engine-mx",
     "escapedName": "cordova-plugin-wkwebview-engine-mx",
-    "rawSpec": "^1.0.1-mx.1.2.1",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "^1.0.1-mx.1.2.1"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER"
@@ -47,5 +47,5 @@
     "jshint": "node node_modules/jshint/bin/jshint src",
     "test": "npm run jshint"
   },
-  "version": "1.0.1-mx.1.2.1"
+  "version": "1.0.3-mx.1.2.2"
 }

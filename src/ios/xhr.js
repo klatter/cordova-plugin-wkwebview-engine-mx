@@ -300,6 +300,9 @@
         var result = null;
         type = type || "text";
         switch(type) {
+            // See mxui/initialize.js for equivalent patch.
+            // This fixes an iOS 13 bug with response type of JSON being reported as blob.
+            case "blob":
             case "text":
                 result = data;
                 break;
