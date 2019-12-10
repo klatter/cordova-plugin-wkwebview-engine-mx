@@ -78,10 +78,72 @@ NSTimer *timer;
         self.engineWebView = wkWebView;
 
         NSLog(@"Using WKWebView");
+        
+        // Restore old localstorage data
+        [self copyDatastorage];
     }
 
     return self;
 }
+
+- (void)copyDatastorage {
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    NSString* appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+    NSString* src = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage/file__0.localstorage"]];
+
+    if (![fileManager fileExistsAtPath:src isDirectory:false]) {
+        src = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit/Caches/file__0.localstorage"]];
+    }
+
+    NSError *fileError = nil;
+    BOOL isDir;
+    if (![fileManager fileExistsAtPath:src isDirectory:&isDir]) return;
+
+    NSLog(@"Migration of local storage invoked...");
+    NSString* dest = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit/WebsiteData/LocalStorage/file__0.localstorage"]];
+    NSString* destFolder = [dest stringByDeletingLastPathComponent];
+
+    if (![fileManager fileExistsAtPath:destFolder isDirectory:&isDir]){
+        if(![fileManager createDirectoryAtPath:destFolder withIntermediateDirectories:YES attributes:nil error:&fileError]) {
+            NSLog(@"Error creating target folder: %@", [fileError localizedDescription]);
+            return;
+        }
+    }
+
+    NSString* srcFolder = [src stringByDeletingLastPathComponent];
+
+    NSArray *sourcePaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[src stringByDeletingLastPathComponent] error:nil];
+    NSArray *destPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:destFolder error:nil];
+
+
+    if (![fileManager removeItemAtPath:dest error:&fileError]){
+        NSLog(@"Error deleting destination file: %@", [fileError localizedDescription]);
+    }
+    if (![fileManager removeItemAtPath:[destFolder stringByAppendingPathComponent:@"file__0.localstorage-smh"] error:&fileError]){
+        NSLog(@"Error deleting destination file, which is fine: %@", [fileError localizedDescription]);
+    }
+    if (![fileManager removeItemAtPath:[destFolder stringByAppendingPathComponent:@"file__0.localstorage-wal"] error:&fileError]){
+        NSLog(@"Error deleting destination file: %@", [fileError localizedDescription]);
+    }
+
+    if (![fileManager copyItemAtPath:src toPath:dest error:&fileError]) {
+        NSLog(@"Error copying file: %@", [fileError localizedDescription]);
+    }
+
+    if (![fileManager copyItemAtPath:[srcFolder stringByAppendingPathComponent:@"file__0.localstorage-smh"] toPath:[destFolder stringByAppendingPathComponent:@"file__0.localstorage-smh"] error:&fileError]) {
+        NSLog(@"Error copying file, which is fine: %@", [fileError localizedDescription]);
+    }
+
+    if ([fileManager copyItemAtPath:[srcFolder stringByAppendingPathComponent:@"file__0.localstorage-wal"] toPath:[destFolder stringByAppendingPathComponent:@"file__0.localstorage-wal"] error:&fileError]) {
+        NSLog(@"Error copying file: %@", [fileError localizedDescription]);
+    }
+
+    if (![fileManager removeItemAtPath:src error:&fileError]){
+        NSLog(@"NO Error deleting file: %@", [fileError localizedDescription]);
+    }
+}
+
 
 - (void)pluginInitialize
 {
@@ -774,6 +836,14 @@ NSTimer *timer;
 {
     NSURL* url = [navigationAction.request URL];
     CDVViewController* vc = (CDVViewController*)self.viewController;
+
+     /*
+     * Workaround tel: links
+     */
+    if ([url.scheme isEqualToString:@"tel"]) {
+        [[UIApplication sharedApplication] openURL:url];
+        return decisionHandler(NO);
+    }
 
     /*
      * Give plugins the chance to handle the url
